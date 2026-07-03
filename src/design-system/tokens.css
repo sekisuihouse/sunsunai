@@ -1,0 +1,115 @@
+:root {
+  --km-color-white: #ffffff;
+  --km-color-black: #000000;
+  --km-color-gray-50: #f7f7f7;
+  --km-color-gray-100: #f2f2f2;
+  --km-color-gray-200: #ececec;
+  --km-color-gray-300: #e5e5e5;
+  --km-color-gray-500: #c4c4c4;
+  --km-color-shadow-black-alpha: #0000001a;
+
+  --km-color-background: var(--km-color-white);
+  --km-color-text: var(--km-color-black);
+  --km-color-border-strong: var(--km-color-black);
+  --km-color-border-subtle: var(--km-color-gray-300);
+  --km-color-surface-muted: var(--km-color-gray-50);
+
+  --km-color-tour-blue: #58C3F5;
+  --km-color-tour-green: #92DF55;
+  --km-color-event-blue: #243FAB;
+  --km-color-event-cyan: #00A0E9;
+  --km-color-event-pink: #E4007F;
+  --km-color-event-yellow: #FFE100;
+
+  --km-font-sans-ja: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN W3",
+    "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  --km-font-display-futura: "futura-pt-bold", sans-serif;
+
+  --km-font-weight-medium: 500;
+  --km-font-weight-bold: 700;
+
+  --km-font-size-xs: 11px;
+  --km-font-size-sm: 12px;
+  --km-font-size-base-sm: 14px;
+  --km-font-size-base: 16px;
+  --km-font-size-button-mobile: 18px;
+  --km-font-size-body-large: 20px;
+  --km-font-size-title-card: 30px;
+  --km-font-size-heading-2: 35px;
+
+  --km-line-height-reset: 1;
+  --km-line-height-normal: 1.5;
+  --km-line-height-relaxed: 1.75;
+  --km-line-height-body: 2;
+  --km-letter-spacing-body: .05em;
+
+  --km-space-2: 8px;
+  --km-space-3: 12px;
+  --km-space-4: 16px;
+  --km-space-5: 20px;
+  --km-space-8: 30px;
+  --km-space-10: 40px;
+  --km-space-15: 60px;
+  --km-space-25: 100px;
+
+  --km-size-container: 1024px;
+  --km-size-container-inner: 812px;
+  --km-size-desktop-rail: 180px;
+  --km-size-button: 312px;
+  --km-size-button-mobile: 184px;
+  --km-size-logo: 252px;
+
+  --km-radius-none: 0;
+  --km-radius-sm: 4px;
+  --km-radius-md: 6px;
+  --km-radius-lg: 10px;
+  --km-radius-pill: 999rem;
+  --km-radius-circle: 50%;
+  --km-radius-campaign-large: 40px;
+  --km-radius-event-asymmetric: 50px 0 50px 0;
+
+  --km-border-width-thin: 1px;
+  --km-border-width-button-mobile: 2px;
+  --km-border-width-button: 4px;
+
+  --km-shadow-soft: 0 4px 15px var(--km-color-shadow-black-alpha);
+  --km-shadow-ambient: 0 0 15px var(--km-color-shadow-black-alpha);
+
+  --km-opacity-hover-muted: .6;
+  --km-opacity-hidden: 0;
+  --km-opacity-visible: 1;
+
+  --km-z-index-base: 1;
+  --km-z-index-header: 19;
+  --km-z-index-overlay: 20;
+
+  --km-breakpoint-mobile-narrow: 374px;
+  --km-breakpoint-mobile: 767px;
+  --km-breakpoint-tablet-min: 768px;
+  --km-breakpoint-tablet: 1023px;
+  --km-breakpoint-desktop-rail: 1204px;
+  --km-breakpoint-campaign-mobile: 750px;
+  --km-breakpoint-campaign-desktop: 1080px;
+
+  --km-motion-fast: all .2s ease-in-out;
+  --km-motion-base: all .35s ease-in-out;
+  --km-motion-page: all .6s;
+  --km-motion-reveal: all .8s ease-in-out;
+
+  --app-header-height: 72px;
+  --app-focus-ring: 0 0 0 var(--km-border-width-button-mobile)
+    var(--km-color-black);
+}
+
+:root[data-km-scope="campaign-tour"] {
+  --km-color-campaign-primary: var(--km-color-tour-blue);
+  --km-color-campaign-secondary: var(--km-color-tour-green);
+}
+
+:root[data-km-scope="campaign-event"] {
+  --km-color-campaign-primary: var(--km-color-event-blue);
+  --km-color-campaign-secondary: var(--km-color-event-cyan);
+  --km-color-campaign-accent: var(--km-color-event-pink);
+  --km-color-campaign-highlight: var(--km-color-event-yellow);
+}

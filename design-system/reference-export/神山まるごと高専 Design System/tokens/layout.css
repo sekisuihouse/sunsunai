@@ -1,0 +1,33 @@
+/* Layout, spacing, sizes, breakpoints, z-index. */
+
+:root {
+  --km-space-2: 8px;
+  --km-space-3: 12px;
+  --km-space-4: 16px;
+  --km-space-5: 20px;    /* button padding */
+  --km-space-8: 30px;
+  --km-space-10: 40px;
+  --km-space-15: 60px;   /* under headings, SP footer */
+  --km-space-25: 100px;  /* header height / above footer */
+
+  --km-size-container: 1024px;       /* page container */
+  --km-size-container-inner: 812px;  /* inner content column */
+  --km-size-desktop-rail: 180px;     /* left nav rail ≥1204px */
+  --km-size-button: 312px;
+  --km-size-button-mobile: 184px;
+  --km-size-logo: 252px;
+
+  --km-z-index-base: 1; /* @kind other */
+  --km-z-index-header: 19; /* @kind other */
+  --km-z-index-overlay: 20; /* @kind other */
+
+  /* breakpoints (reference values — @media cannot read vars) */
+  --km-breakpoint-mobile-narrow: 374px;  /* narrow-SP margin compression */
+  --km-breakpoint-mobile: 767px;         /* .sp_only / .pc_only switch */
+  --km-breakpoint-tablet-min: 768px;     /* hover mask enabled */
+  --km-breakpoint-tablet: 1023px;        /* container width adjust */
+  --km-breakpoint-desktop-rail: 1204px;  /* left rail nav */
+  /* campaign LPs use their own: 750px / 1080px — keep separate */
+  --km-breakpoint-campaign-mobile: 750px;
+  --km-breakpoint-campaign-desktop: 1080px;
+}

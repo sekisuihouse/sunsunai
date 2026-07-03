@@ -1,0 +1,34 @@
+/* Radius, border, shadow, opacity, motion tokens. */
+
+:root {
+  --km-radius-none: 0;
+  --km-radius-sm: 4px;
+  --km-radius-md: 6px;
+  --km-radius-lg: 10px;
+  --km-radius-pill: 999rem;   /* buttons, overlay circle */
+  --km-radius-circle: 50%;    /* hover masks, photo crops */
+  /* campaign-only radii */
+  --km-radius-campaign-large: 40px;
+  --km-radius-event-asymmetric: 50px 0 50px 0;
+
+  --km-border-width-thin: 1px;
+  --km-border-width-button-mobile: 2px;
+  --km-border-width-button: 4px;
+
+  --km-shadow-soft: 0 4px 15px var(--km-color-shadow-black-alpha);
+  --km-shadow-ambient: 0 0 15px var(--km-color-shadow-black-alpha);
+
+  --km-opacity-hover-muted: .6; /* @kind other */ /* text-link hover */
+  --km-opacity-hidden: 0; /* @kind other */
+  --km-opacity-visible: 1; /* @kind other */
+
+  --km-motion-fast: all .2s ease-in-out; /* @kind other */
+  --km-motion-base: all .35s ease-in-out; /* @kind other */ /* buttons, menu, hover mask */
+  --km-motion-page: all .6s; /* @kind other */ /* page transitions */
+  --km-motion-reveal: all .8s ease-in-out; /* @kind other */ /* scroll reveal */
+
+  /* Intentional addition: original site sets outline:none globally (a11y risk, EV-0002).
+     Use this ring on :focus-visible instead. */
+  --km-focus-ring: 2px solid var(--km-color-black);
+  --km-focus-ring-offset: 2px;
+}

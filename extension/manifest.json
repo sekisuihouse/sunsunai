@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "SunSun AI Danmaku Overlay",
+  "version": "0.1.0",
+  "description": "SunSun AIの授業コメントをWeb画面上に弾幕表示する拡張機能MVPです。",
+  "permissions": ["activeTab", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/danmaku-overlay.js"],
+      "css": ["content/danmaku-overlay.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

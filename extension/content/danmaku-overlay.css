@@ -1,0 +1,56 @@
+#sunsunai-danmaku-root {
+  --km-color-white: #ffffff;
+  --km-color-black: #000000;
+  --km-font-size-body-large: 20px;
+  --km-font-weight-bold: 700;
+  --km-line-height-normal: 1.5;
+  --km-space-2: 8px;
+  --km-space-4: 16px;
+  --km-border-width-button-mobile: 2px;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic",
+    YuGothic, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+.sunsunai-danmaku-comment {
+  position: absolute;
+  left: 100%;
+  width: max-content;
+  max-width: 74vw;
+  border: var(--km-border-width-button-mobile) solid var(--km-color-black);
+  background: color-mix(in srgb, var(--km-color-white) 92%, transparent);
+  color: var(--km-color-black);
+  font-size: var(--km-font-size-body-large);
+  font-weight: var(--km-font-weight-bold);
+  line-height: var(--km-line-height-normal);
+  padding: var(--km-space-2) var(--km-space-4);
+  white-space: nowrap;
+  animation: sunsunai-danmaku-run var(--sunsunai-speed, 12s) linear forwards;
+}
+
+.sunsunai-danmaku-comment[data-lane="top"] {
+  top: var(--sunsunai-offset, 20px);
+}
+
+.sunsunai-danmaku-comment[data-lane="bottom"] {
+  bottom: var(--sunsunai-offset, 20px);
+}
+
+@keyframes sunsunai-danmaku-run {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-100vw - 100%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sunsunai-danmaku-comment {
+    animation-duration: 1ms;
+  }
+}

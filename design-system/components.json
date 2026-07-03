@@ -1,0 +1,306 @@
+{
+  "$schema": "https://example.com/kamiyama-design-system/components.schema.json",
+  "meta": {
+    "project": "神山まるごと高専",
+    "sourceRoot": "kamiyama-ac-jp",
+    "generatedAt": "2026-07-02T00:00:00+09:00",
+    "analysisMode": "static mirror"
+  },
+  "components": [
+    {
+      "name": "GlobalShell",
+      "category": "layout",
+      "status": "observed",
+      "evidence": ["EV-0007", "EV-0011", "EV-0021", "EV-0035"],
+      "anatomy": ["header", "navigation", "main", "link CTA area", "footer"],
+      "variants": ["top-header", "desktop-left-rail"],
+      "sizes": [
+        {"name": "desktop-rail", "value": "180px left rail", "evidence": ["EV-0007"]},
+        {"name": "container", "value": "1024px", "evidence": ["EV-0005"]}
+      ],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0021"]},
+        "mobileMenuOpen": {"observed": true, "evidence": ["EV-0009"]},
+        "loading": {"observed": false},
+        "error": {"observed": false}
+      },
+      "responsiveBehavior": "1204px 以上で左レール、1023px 以下でコンテナ縮小、767px 以下で SP 表示に切り替わる。",
+      "tokenDependencies": ["size.container", "size.desktop-rail", "breakpoint.desktop-rail", "zIndex.header"],
+      "accessibility": [
+        "共通 focus outline が消されているため、キーボードフォーカスの可視性が不足する可能性が高い。EV-0002"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    },
+    {
+      "name": "HeaderNavigation",
+      "category": "navigation",
+      "status": "observed",
+      "evidence": ["EV-0007", "EV-0008", "EV-0010", "EV-0021"],
+      "anatomy": ["logo", "primary navigation links", "menu button", "bottom CTA links"],
+      "variants": ["desktop-left-rail", "tablet-mobile-top"],
+      "sizes": [
+        {"name": "desktop-rail", "value": "180px", "evidence": ["EV-0007"]},
+        {"name": "mobile-height", "value": "72px", "evidence": ["EV-0007"]},
+        {"name": "menu-button", "value": "45x30px desktop/tablet, 28x22px mobile", "evidence": ["EV-0008"]}
+      ],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0007"]},
+        "hover": {"observed": true, "evidence": ["EV-0010"], "behavior": "opacity .6"},
+        "active": {"observed": true, "evidence": ["EV-0009"], "behavior": "overlay active class"},
+        "disabled": {"observed": false},
+        "loading": {"observed": false}
+      },
+      "responsiveBehavior": "1204px 以上ではメニューボタン非表示でサイドナビ固定。767px 以下ではロゴとボタン寸法が縮小。",
+      "tokenDependencies": ["color.black", "color.white", "motion.base", "opacity.hover-muted"],
+      "accessibility": [
+        "メニューボタンの accessible name は生成 HTML だけでは十分に確認できない。",
+        "focus outline 削除の影響を受ける。EV-0002"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    },
+    {
+      "name": "OverlayNavigation",
+      "category": "navigation",
+      "status": "observed",
+      "evidence": ["EV-0009", "EV-0010"],
+      "anatomy": ["overlay root", "close background circle", "navigation list", "CTA footer"],
+      "variants": ["closed", "active"],
+      "sizes": [
+        {"name": "close-bg", "value": "999rem circle", "evidence": ["EV-0009"]}
+      ],
+      "states": {
+        "closed": {"observed": true, "evidence": ["EV-0009"], "behavior": "opacity 0 and pointer-events none"},
+        "open": {"observed": true, "evidence": ["EV-0009"], "behavior": "opacity 1 and pointer-events auto"},
+        "hover": {"observed": true, "evidence": ["EV-0010"]},
+        "focus": {"observed": false}
+      },
+      "responsiveBehavior": "top header のメニュー操作時に利用。desktop rail 幅では基本的にメニューが非表示。",
+      "tokenDependencies": ["radius.pill", "motion.base", "zIndex.overlay"],
+      "accessibility": [
+        "aria-expanded、focus trap、escape close は静的 HTML/CSS からは確認できない。"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    },
+    {
+      "name": "Button",
+      "category": "action",
+      "status": "observed",
+      "evidence": ["EV-0012", "EV-0013", "EV-0014", "EV-0015", "EV-0023"],
+      "anatomy": ["anchor or button", "inner text", "animated span"],
+      "variants": ["btn-6 default", "btn_white", "btn_black", "unpublished-like state on admission page"],
+      "sizes": [
+        {"name": "default", "value": "312px width, 20px padding, 20px font, 4px border", "evidence": ["EV-0012"]},
+        {"name": "mobile", "value": "184px width, 12px padding, 18px font, 2px border", "evidence": ["EV-0015"]}
+      ],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0012"]},
+        "hover": {"observed": true, "evidence": ["EV-0014"], "behavior": "foreground/background inversion and expanding circle"},
+        "active": {"observed": true, "evidence": ["EV-0014"]},
+        "disabled": {"observed": false},
+        "loading": {"observed": false},
+        "error": {"observed": false}
+      },
+      "responsiveBehavior": "767px 以下で幅、padding、font-size、border-width が縮小。",
+      "tokenDependencies": ["size.button", "size.button-mobile", "borderWidth.button", "borderWidth.button-mobile", "motion.base"],
+      "accessibility": [
+        "focus style は明示されていない。EV-0002",
+        "hover 依存の反転表現は pointer device 以外で代替が必要。"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    },
+    {
+      "name": "HoverMaskLink",
+      "category": "media-link",
+      "status": "observed",
+      "evidence": ["EV-0016", "EV-0022", "EV-0038"],
+      "anatomy": ["link", "image or visual target", "span mask", "mask layer"],
+      "variants": ["default"],
+      "sizes": [
+        {"name": "desktop-mask", "value": "300% to 305% expansion", "evidence": ["EV-0016"]}
+      ],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0022"]},
+        "hover": {"observed": true, "evidence": ["EV-0016"]},
+        "focus": {"observed": false},
+        "disabled": {"observed": false}
+      },
+      "responsiveBehavior": "min-width 768px で hover mask が有効。SP 用の同等効果は確認できない。",
+      "tokenDependencies": ["radius.circle", "motion.base"],
+      "accessibility": [
+        "画像リンクの場合、alt と link text の重複/欠落は個別ページで確認が必要。"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    },
+    {
+      "name": "Breadcrumb",
+      "category": "navigation",
+      "status": "observed",
+      "evidence": ["EV-0019", "EV-0022", "EV-0035"],
+      "anatomy": ["wrapper", "ordered list-like items", "link", "current item", "separator"],
+      "variants": ["default"],
+      "sizes": [
+        {"name": "desktop", "value": "120px wrapper height, 12px text", "evidence": ["EV-0019"]},
+        {"name": "mobile", "value": "91px wrapper height, 11px text", "evidence": ["EV-0019"]}
+      ],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0019"]},
+        "hover": {"observed": true, "evidence": ["EV-0019"], "behavior": "link opacity changes"},
+        "selected": {"observed": true, "evidence": ["EV-0019"], "behavior": "current item text"},
+        "disabled": {"observed": false}
+      },
+      "responsiveBehavior": "767px 以下で高さと文字サイズが縮小。",
+      "tokenDependencies": ["fontSize.sm", "fontSize.xs", "color.gray-300"],
+      "accessibility": [
+        "生成 HTML から nav aria-label や ol 構造の有無はページごとに確認が必要。"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    },
+    {
+      "name": "LinkCtaCards",
+      "category": "navigation",
+      "status": "observed",
+      "evidence": ["EV-0017", "EV-0018", "EV-0022"],
+      "anatomy": ["section", "link list", "card", "black title bar", "description", "link text"],
+      "variants": ["two-column", "single-column-mobile"],
+      "sizes": [
+        {"name": "desktop", "value": "50% width card with 4px border", "evidence": ["EV-0017"]},
+        {"name": "mobile", "value": "100% width card", "evidence": ["EV-0018"]}
+      ],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0017"]},
+        "hover": {"observed": true, "evidence": ["EV-0016"], "behavior": "when nested hover_mask is present"},
+        "empty": {"observed": false}
+      },
+      "responsiveBehavior": "767px 以下で 1 カラム化し、title/desc/link text を縮小。",
+      "tokenDependencies": ["borderWidth.button", "fontSize.title-card", "color.black", "color.white"],
+      "accessibility": [
+        "カード全体リンクの場合、見出しとリンク目的の読み上げ重複に注意。"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    },
+    {
+      "name": "NewsList",
+      "category": "content",
+      "status": "observed",
+      "evidence": ["EV-0021", "EV-0038"],
+      "anatomy": ["section", "news item", "date/category", "title link", "CTA"],
+      "variants": ["home summary", "news index"],
+      "sizes": [],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0021"]},
+        "hover": {"observed": true, "evidence": ["EV-0010"], "behavior": "opacity style is shared for links"},
+        "empty": {"observed": false},
+        "loading": {"observed": false},
+        "error": {"observed": false}
+      },
+      "responsiveBehavior": "詳細な CSS は生成バンドル側に多く、静的ミラーからは共通 class とページ存在のみ確認。",
+      "tokenDependencies": ["fontFamily.sans-ja", "color.black", "motion.base"],
+      "accessibility": [
+        "日付/カテゴリの semantic markup は生成 HTML が minify されているため詳細確認が必要。"
+      ],
+      "thirdParty": false,
+      "confidence": "medium"
+    },
+    {
+      "name": "Footer",
+      "category": "navigation",
+      "status": "observed",
+      "evidence": ["EV-0011", "EV-0021", "EV-0028"],
+      "anatomy": ["logo", "navigation groups", "SNS links", "copyright"],
+      "variants": ["desktop", "mobile"],
+      "sizes": [
+        {"name": "logo-desktop", "value": "252px", "evidence": ["EV-0011", "EV-0028"]},
+        {"name": "social-icon-desktop", "value": "50px", "evidence": ["EV-0011"]},
+        {"name": "social-icon-mobile", "value": "40px", "evidence": ["EV-0011"]}
+      ],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0011"]},
+        "hover": {"observed": true, "evidence": ["EV-0010"]},
+        "disabled": {"observed": false}
+      },
+      "responsiveBehavior": "SP では余白とロゴ/SNS サイズが縮小し、ナビが縦積み/グリッド寄りに変化。",
+      "tokenDependencies": ["size.logo", "color.black", "fontSize.sm", "space.25"],
+      "accessibility": [
+        "SNS icon link の accessible name は画像 alt または隠し text に依存するためページ別確認が必要。"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    },
+    {
+      "name": "HubSpotFormEmbed",
+      "category": "form",
+      "status": "observed-third-party",
+      "evidence": ["EV-0024", "EV-0034", "EV-0040"],
+      "anatomy": ["#hubspot-form placeholder", "external script-rendered form"],
+      "variants": ["inquiry", "mailmagazine"],
+      "sizes": [],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0024"]},
+        "success": {"observed": true, "evidence": ["EV-0025"], "behavior": "separate complete page"},
+        "loading": {"observed": false},
+        "error": {"observed": false},
+        "disabled": {"observed": false}
+      },
+      "responsiveBehavior": "外部埋め込みのためローカル CSS から断定不可。",
+      "tokenDependencies": [],
+      "accessibility": [
+        "フォーム本体は第三者レンダリングのため、label、error、focus state は本抽出では未確認。"
+      ],
+      "thirdParty": true,
+      "confidence": "high"
+    },
+    {
+      "name": "CampaignLandingPage",
+      "category": "campaign",
+      "status": "observed",
+      "evidence": ["EV-0026", "EV-0027", "EV-0029"],
+      "anatomy": ["campaign header", "hero", "colored sections", "campaign CTA", "event logo"],
+      "variants": ["tour", "miraino-gakko-fes2023"],
+      "sizes": [
+        {"name": "campaign-radius-large", "value": "40px / 50px asymmetric", "evidence": ["EV-0026", "EV-0027"]}
+      ],
+      "states": {
+        "default": {"observed": true, "evidence": ["EV-0026", "EV-0027"]},
+        "hover": {"observed": true, "evidence": ["EV-0026"]},
+        "selected": {"observed": false},
+        "loading": {"observed": false}
+      },
+      "responsiveBehavior": "LP 独自 CSS で 750px/1080px 系 breakpoint が存在。本体とは別テーマとして扱う。",
+      "tokenDependencies": ["color.tour-blue", "color.tour-green", "color.event-blue", "color.event-cyan", "color.event-pink", "color.event-yellow"],
+      "accessibility": [
+        "色数が多いため contrast は LP ごとに個別監査が必要。"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    },
+    {
+      "name": "RevealMotion",
+      "category": "motion",
+      "status": "observed",
+      "evidence": ["EV-0020", "EV-0037", "EV-0038"],
+      "anatomy": ["initial hidden state", "is-show class", "page enter/leave classes"],
+      "variants": ["js-fade", "fv-fade", "fv-fade2", "page-transition"],
+      "sizes": [],
+      "states": {
+        "hidden": {"observed": true, "evidence": ["EV-0020"]},
+        "visible": {"observed": true, "evidence": ["EV-0020"]},
+        "enter": {"observed": true, "evidence": ["EV-0037"]},
+        "leave": {"observed": true, "evidence": ["EV-0037"]}
+      },
+      "responsiveBehavior": "breakpoint 差は確認できない。全体 class として多数ページで利用。",
+      "tokenDependencies": ["motion.reveal", "motion.page", "opacity.hidden", "opacity.visible"],
+      "accessibility": [
+        "prefers-reduced-motion 対応は確認できない。"
+      ],
+      "thirdParty": false,
+      "confidence": "high"
+    }
+  ]
+}

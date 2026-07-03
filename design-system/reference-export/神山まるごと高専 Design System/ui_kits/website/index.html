@@ -1,0 +1,49 @@
+<!-- @dsCard group="Website" viewport="1440x900" name="本体サイト" subtitle="トップ / 入試情報 / お問い合わせ（クリックで遷移）" -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>神山まるごと高専 — Website UI Kit</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body style="margin:0;background:#fff;">
+<div id="root"></div>
+<script type="text/babel">
+const { HomeScreen, AdmissionScreen, InquiryScreen } = window.DesignSystem_8a2dbb;
+
+function App() {
+  const [screen, setScreen] = React.useState(() => localStorage.getItem('km-ui-kit-screen') || 'home');
+  const go = (s) => { setScreen(s); localStorage.setItem('km-ui-kit-screen', s); window.scrollTo(0, 0); };
+  const navItems = [
+    { label: '学校案内', href: '#', onClick: (e) => { e.preventDefault(); go('home'); } },
+    { label: '学校生活', href: '#', onClick: (e) => { e.preventDefault(); go('home'); } },
+    { label: '学校便り', href: '#', onClick: (e) => { e.preventDefault(); go('home'); } },
+    { label: '入試情報', href: '#', onClick: (e) => { e.preventDefault(); go('admission'); } },
+  ];
+  return (
+    <div>
+      {/* kit switcher (not part of the brand UI) */}
+      <div data-screen-label="switcher" style={{ position: 'fixed', bottom: 12, right: 12, zIndex: 99, display: 'flex', gap: 6, background: '#000', borderRadius: 999, padding: 6 }}>
+        {[['home', 'トップ'], ['admission', '入試情報'], ['inquiry', 'お問い合わせ']].map(([k, label]) => (
+          <button key={k} onClick={() => go(k)} style={{
+            font: '700 12px sans-serif', padding: '6px 14px', borderRadius: 999, border: 'none', cursor: 'pointer',
+            background: screen === k ? '#fff' : 'transparent', color: screen === k ? '#000' : '#fff',
+          }}>{label}</button>
+        ))}
+      </div>
+      <div data-screen-label={screen}>
+        {screen === 'home' && <HomeScreen onNavigate={go} navItems={navItems} />}
+        {screen === 'admission' && <AdmissionScreen onNavigate={go} navItems={navItems} />}
+        {screen === 'inquiry' && <InquiryScreen navItems={navItems} />}
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

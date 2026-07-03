@@ -1,0 +1,703 @@
+{
+  "$schema": "https://example.com/kamiyama-design-system/evidence.schema.json",
+  "generatedAt": "2026-07-02T00:00:00+09:00",
+  "project": {
+    "name": "神山まるごと高専",
+    "sourceRoot": "kamiyama-ac-jp",
+    "publicUrl": "https://kamiyama.ac.jp/",
+    "analysisMode": "static mirror"
+  },
+  "evidence": [
+    {
+      "id": "EV-0001",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 400,
+        "lineEnd": 409,
+        "symbol": "body, table, input, textarea, select, option"
+      },
+      "claim": "本体サイトは日本語システムフォント中心で、本文色は黒、font-weight は 500 を基準にしている。",
+      "observations": [
+        "font-family に -apple-system, BlinkMacSystemFont, Helvetica Neue, Yu Gothic, ヒラギノ角ゴ系, Meiryo, sans-serif が指定されている。",
+        "color は #000000、font-weight は 500。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0002",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 417,
+        "lineEnd": 423,
+        "symbol": "*:focus, input:focus, textarea:focus, select:focus"
+      },
+      "claim": "フォーカスアウトラインがグローバルに消されている。",
+      "observations": [
+        "outline: none が複数の focus selector に指定されている。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0003",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 480,
+        "lineEnd": 490,
+        "symbol": "body"
+      },
+      "claim": "ページ背景は白、横スクロールは抑制され、body の line-height は 1 にリセットされている。",
+      "observations": [
+        "background: #ffffff",
+        "overflow-x: hidden",
+        "line-height: 1"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0004",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 492,
+        "lineEnd": 504,
+        "symbol": "html, h2, p"
+      },
+      "claim": "基礎見出しは 35px、本文は 20px/line-height 2/letter-spacing .05em の太め設定が使われる。",
+      "observations": [
+        "html font-size は 1vw。",
+        "h2 は 35px、font-weight 700、margin-bottom 60px。",
+        "p は 20px、font-weight bold、line-height 2、letter-spacing .05em。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0005",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 527,
+        "lineEnd": 539,
+        "symbol": ".wrapper, .wrapper_inner"
+      },
+      "claim": "主要コンテンツ幅は 1024px、内部幅は 812px を基準にしている。",
+      "observations": [
+        ".wrapper width: 1024px; margin: auto",
+        ".wrapper_inner max-width: 812px; margin: auto"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0006",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 517,
+        "lineEnd": 553,
+        "symbol": ".sp_only, .pc_only, @media max-width: 767px"
+      },
+      "claim": "PC/SP の表示切り替えは .pc_only と .sp_only によって制御され、767px 以下で反転する。",
+      "observations": [
+        ".sp_only は通常 display:none。",
+        "max-width: 767px で .sp_only が display:block、.pc_only が display:none になる。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0007",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 574,
+        "lineEnd": 719,
+        "symbol": "#header"
+      },
+      "claim": "ヘッダーは通常 fixed top、1204px 以上では左サイドレールに変形する。",
+      "observations": [
+        "#header は position: fixed、z-index: 19、白の半透明背景。",
+        "min-width: 1204px では width: 180px、height: 100vh、left: 0 のサイドナビになる。",
+        "1204px 以上では #btn_menu が非表示。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0008",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 614,
+        "lineEnd": 650,
+        "symbol": "#btn_menu"
+      },
+      "claim": "モバイル/タブレット用メニューボタンは 3 本線の独自アイコンで構成される。",
+      "observations": [
+        "width: 45px、height: 30px。",
+        "span は height: 1px、background: #000000、transition: all .35s ease-in-out。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0009",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 778,
+        "lineEnd": 837,
+        "symbol": "#sp_nav"
+      },
+      "claim": "SP ナビは fixed overlay と巨大な円形背景のスケールアニメーションで表示される。",
+      "observations": [
+        "#sp_nav は fixed、opacity 0、pointer-events none。",
+        ".active で opacity 1、pointer-events auto。",
+        ".close_bg は 999rem の円形で transform: scale(0) から拡大する。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0010",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 871,
+        "lineEnd": 910,
+        "symbol": ".nav_link"
+      },
+      "claim": "ナビゲーションリンクは 15-16px の太字で、hover は opacity 低下で表現する。",
+      "observations": [
+        "font-size: 16px/15px、font-weight bold。",
+        "hover 時に opacity: .6。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0011",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 1323,
+        "lineEnd": 1587,
+        "symbol": "#footer"
+      },
+      "claim": "フッターはロゴ、SNS、ナビ、著作権を持つ大きめの余白構成で、SP では縦積みに近づく。",
+      "observations": [
+        "footer margin は 100px auto 0。",
+        "social icon は 50px、SP では 40px。",
+        "logo width は 252px、SP では 222px。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0012",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 1683,
+        "lineEnd": 1702,
+        "symbol": ".btn a, .btn button, .btn_inner"
+      },
+      "claim": "主要ボタンは黒い太枠、太字 20px、幅 312px、20px padding を基準にする。",
+      "observations": [
+        "border: 4px solid #000000。",
+        "font-size: 20px、font-weight bold、letter-spacing .05em。",
+        "width: 312px、padding: 20px。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0013",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 1707,
+        "lineEnd": 1756,
+        "symbol": ".btn-6, .btn_white, .btn_black"
+      },
+      "claim": "主要ボタンには白地黒文字、白枠白文字、黒地白文字のバリアントがある。",
+      "observations": [
+        ".btn-6 は background:#fff、border:#000、color:#000。",
+        ".btn_white は transparent 背景、白枠、白文字。",
+        ".btn_black は黒背景、黒枠、白文字。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0014",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 1758,
+        "lineEnd": 1831,
+        "symbol": ".btn-6:hover, .btn-6.active"
+      },
+      "claim": "デスクトップのボタン hover/active は文字色と背景を反転し、疑似要素の円を拡大する。",
+      "observations": [
+        "hover で color が白または黒に切り替わる。",
+        "疑似要素 span が幅 225%/562.5px まで拡大し border-radius: 50%。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0015",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 1832,
+        "lineEnd": 1844,
+        "symbol": "@media max-width: 767px .btn"
+      },
+      "claim": "SP の主要ボタンは 184px 幅、18px、2px 枠に縮小される。",
+      "observations": [
+        "width: 184px、padding: 12px。",
+        "font-size: 18px、border-width: 2px。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0016",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 1847,
+        "lineEnd": 1865,
+        "symbol": ".hover_mask"
+      },
+      "claim": "画像/リンクの hover mask はデスクトップのみで円形マスクを拡大する。",
+      "observations": [
+        "min-width: 768px で .hover_mask span と .mask を transition 付きで制御。",
+        "hover 時に円が 300%/305% へ拡大する。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0017",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 1872,
+        "lineEnd": 1916,
+        "symbol": "#links .link_list"
+      },
+      "claim": "リンクカードは 2 カラム、黒 4px 枠、黒帯タイトルを持つ。",
+      "observations": [
+        "width: 50%、border: 4px solid #000000。",
+        "title は 30px、白文字、黒背景。",
+        "desc は 19px、link_txt は 20px。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0018",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 1990,
+        "lineEnd": 2018,
+        "symbol": "@media max-width: 767px #links"
+      },
+      "claim": "SP ではリンクカードは 1 カラムになり、タイトル/本文サイズが縮小する。",
+      "observations": [
+        "width: 100%。",
+        "title は 21px、desc は 13px、link_txt は 18px。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0019",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 2231,
+        "lineEnd": 2303,
+        "symbol": ".p-breadcrumb"
+      },
+      "claim": "パンくずは右寄せ、12px 太字、薄いグレーのセパレーターで構成される。",
+      "observations": [
+        "wrapper height は 120px、SP では 91px。",
+        "item font-size は 12px、SP では 11px。",
+        "separator は #E5E5E5 の horizontal line。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0020",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/wp/wp-content/themes/kamiyamamarugoto/style.css.q-2644c5707e",
+        "lineStart": 2339,
+        "lineEnd": 2355,
+        "symbol": ".js-fade, .fv-fade, .fv-fade2"
+      },
+      "claim": "スクロール/初期表示の reveal は opacity と translateY(15px)、.8s ease-in-out で構成される。",
+      "observations": [
+        "初期状態は opacity:0、transform: translateY(15px)。",
+        ".is-show で opacity:1、transform: translateY(0)。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0021",
+      "type": "html",
+      "source": {
+        "path": "kamiyama-ac-jp/index.html",
+        "lineStart": 34,
+        "lineEnd": 34,
+        "symbol": "home page body"
+      },
+      "claim": "トップページは共通ヘッダー、ニュース、SNS、CTA、フッターを含む。",
+      "observations": [
+        "header、nav_link、btn-6、hover_mask、link_list、footer が同一行の Nuxt 生成 HTML に含まれる。",
+        "note、LINE、Instagram、X など外部リンクが観測される。"
+      ],
+      "confidence": "medium",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0022",
+      "type": "html",
+      "source": {
+        "path": "kamiyama-ac-jp/guidance/about/index.html",
+        "lineStart": 46,
+        "lineEnd": 314,
+        "symbol": "about page layout"
+      },
+      "claim": "学校案内ページはパンくず、PC/SP 改行制御、CTA、リンクバナー、共通フッターを使用する。",
+      "observations": [
+        "p-breadcrumb が line 46-62 に存在する。",
+        "pc_only/sp_only が本文コピー内で使われる。",
+        "btn_white/btn-6 と hover_mask がページ下部にある。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0023",
+      "type": "html",
+      "source": {
+        "path": "kamiyama-ac-jp/admission/2027/index.html",
+        "lineStart": 164,
+        "lineEnd": 472,
+        "symbol": "admission page buttons and FAQ"
+      },
+      "claim": "入試ページは複数 CTA、未公開状態のボタン、FAQ/説明ブロックを含む。",
+      "observations": [
+        "line 164, 299, 381-384, 398, 437, 460-472 にボタンや CTA が存在する。",
+        "line 291 付近に未公開状態を示すボタンがある。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0024",
+      "type": "html",
+      "source": {
+        "path": "kamiyama-ac-jp/inquiry/index.html",
+        "lineStart": 78,
+        "lineEnd": 78,
+        "symbol": "#hubspot-form"
+      },
+      "claim": "問い合わせフォームはローカル実装ではなく HubSpot 埋め込みとして配置されている。",
+      "observations": [
+        "id=\"hubspot-form\" が存在する。",
+        "ローカル HTML 内に form input 群は確認できない。"
+      ],
+      "confidence": "high",
+      "thirdParty": true
+    },
+    {
+      "id": "EV-0025",
+      "type": "html",
+      "source": {
+        "path": "kamiyama-ac-jp/inquiry/complete/index.html",
+        "lineStart": 43,
+        "lineEnd": 55,
+        "symbol": "inquiry complete"
+      },
+      "claim": "問い合わせ完了ページには完了/成功状態のコピーが存在する。",
+      "observations": [
+        "送信完了後の案内コピーがある。",
+        "問い合わせ先情報は存在するが、個人情報や秘密情報ではないため内容は成果物に転記しない。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0026",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/lp/tour/assets/css/style.css",
+        "lineStart": 898,
+        "lineEnd": 1299,
+        "symbol": "tour LP buttons and palette"
+      },
+      "claim": "学校説明会 LP は本体と異なる水色/黄緑のキャンペーン配色を持つ。",
+      "observations": [
+        "#58C3F5 と #92DF55 がボタン、見出し、装飾に使われる。",
+        "角丸 8px/10px/40px/50px 系の本体より柔らかい表現が多い。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0027",
+      "type": "css",
+      "source": {
+        "path": "kamiyama-ac-jp/miraino-gakko-fes2023/assets/css/pages/top.css",
+        "lineStart": 42,
+        "lineEnd": 680,
+        "symbol": "miraino-gakko-fes2023 top"
+      },
+      "claim": "未来の学校 FES LP は本体と異なる青、シアン、ピンク、黄のイベント配色を持つ。",
+      "observations": [
+        "#243FAB、#00A0E9、#E4007F、#FFE100 が観測される。",
+        "50px 0 50px 0 など非対称の角丸が使われる。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0028",
+      "type": "asset",
+      "source": {
+        "path": "kamiyama-ac-jp/img/common/logo.svg",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "main logo svg"
+      },
+      "claim": "本体ロゴは SVG で提供され、252x150 の viewBox/寸法を持つ。",
+      "observations": [
+        "img/common/logo.svg が存在する。",
+        "WordPress theme 配下にも同じロゴが複製されている。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0029",
+      "type": "asset",
+      "source": {
+        "path": "kamiyama-ac-jp/miraino-gakko-fes2023/assets/img/common/kamiyama_logo-white.svg",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "event white logo svg"
+      },
+      "claim": "イベント LP には白版のロゴ SVG が存在する。",
+      "observations": [
+        "kamiyama_logo-white.svg が存在する。",
+        "本体とは異なる背景色上での使用を想定したアセット。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0030",
+      "type": "repository-scan",
+      "source": {
+        "path": "kamiyama-ac-jp",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "font file search"
+      },
+      "claim": "ミラー内に woff/woff2/ttf/otf のローカルフォントファイルは確認できない。",
+      "observations": [
+        "CSS には futura-pt-bold が参照されるが、ローカルフォントファイルは見つからない。",
+        "フォントの配信元やライセンスはミラーからは断定できない。"
+      ],
+      "confidence": "medium",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0031",
+      "type": "css-analysis",
+      "source": {
+        "path": "kamiyama-ac-jp/**/*.css",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "aggregate token frequency"
+      },
+      "claim": "CSS 全体では白/黒/薄灰と、LP 固有の鮮やかな色が頻出する。",
+      "observations": [
+        "#fff 356 回、#000 244 回、#ececec 88 回、#f7f7f7 61 回。",
+        "LP 色として #58C3F5 21 回、#243FAB 19 回、#92DF55 16 回が観測される。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0032",
+      "type": "css-analysis",
+      "source": {
+        "path": "kamiyama-ac-jp/**/*.css",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "aggregate breakpoint frequency"
+      },
+      "claim": "主要ブレークポイントは 767px、1023px、374px、1204px、768px だが、LP 固有で 750px/1080px も存在する。",
+      "observations": [
+        "max-width: 767px が最多。",
+        "max-width: 1023px、max-width: 374px、min-width: 1204px、min-width: 768px が本体側で多い。",
+        "LP 側で 750px、1080px 系が見られる。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0033",
+      "type": "screenshot",
+      "source": {
+        "path": "design-system/screenshots/home-desktop.png",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "local home desktop render"
+      },
+      "claim": "ローカルミラーのトップページ描画には 404 文言が混入する。",
+      "observations": [
+        "デスクトップスクリーンショット上部に「お探しのページが見つかりませんでした。」が表示される。",
+        "抽出対象としては HTML/CSS の静的証拠を優先し、視覚確認は制約付きとする。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0034",
+      "type": "screenshot",
+      "source": {
+        "path": "design-system/screenshots/inquiry-desktop.png",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "local inquiry desktop render"
+      },
+      "claim": "問い合わせページの HubSpot フォーム領域はローカルミラーでは空白に近い状態で表示される。",
+      "observations": [
+        "ページタイトルや共通 UI は描画される。",
+        "フォーム本体の外部埋め込みはローカルでは再現されない。"
+      ],
+      "confidence": "high",
+      "thirdParty": true
+    },
+    {
+      "id": "EV-0035",
+      "type": "screenshot",
+      "source": {
+        "path": "design-system/screenshots/admission-2027-desktop.png",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "local admission desktop render"
+      },
+      "claim": "入試ページはローカルミラー上で左サイドナビ、大きな円弧見出し、パンくずを描画できた。",
+      "observations": [
+        "左レール型ヘッダーと黒い CTA エリアが画面左に表示される。",
+        "巨大な円弧と縦組みに近いタイトル表現が見える。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0036",
+      "type": "download-report",
+      "source": {
+        "path": "kamiyama-ac-jp/download-report.md",
+        "lineStart": 1,
+        "lineEnd": 30,
+        "symbol": "mirror report"
+      },
+      "claim": "対象はダウンロード済みミラーであり、一部 403/404 はサーバー側仕様または遷移先非公開として残っている。",
+      "observations": [
+        "ミラーには HTML/CSS/JS/画像/PDF 等が保存されている。",
+        "一部フォームやイベント URL は取得不可または意図された非公開として残る。"
+      ],
+      "confidence": "medium",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0037",
+      "type": "html",
+      "source": {
+        "path": "kamiyama-ac-jp/index.html",
+        "lineStart": 33,
+        "lineEnd": 33,
+        "symbol": "page transition style"
+      },
+      "claim": "ページ遷移は .page-enter-active/.page-leave-active の 0.6s transition と opacity/translateY で表現される。",
+      "observations": [
+        "transition: all .6s が inline style に含まれる。",
+        "enter/leave に opacity と translateY が指定される。"
+      ],
+      "confidence": "medium",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0038",
+      "type": "html-analysis",
+      "source": {
+        "path": "kamiyama-ac-jp/**/*.html",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "class frequency"
+      },
+      "claim": "共通クラスとして js-fade、wrapper、nav_01/nav_02、p-breadcrumb、pc_only/sp_only、btn、btn-6 が多数ページで繰り返される。",
+      "observations": [
+        "js-fade が 3837 回、wrapper が 2833 回、pc_only が 1814 回、sp_only が 1085 回観測される。",
+        "btn は 620 回、btn-6 は 618 回観測される。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0039",
+      "type": "css-analysis",
+      "source": {
+        "path": "kamiyama-ac-jp/**/*.css",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "radius shadow motion frequency"
+      },
+      "claim": "角丸は 4px/10px/6px が多く、影は #0000001a の薄い黒影、transition は .35s ease-in-out が多い。",
+      "observations": [
+        "border-radius は 10px 28 回、4px 28 回、6px 27 回。",
+        "box-shadow は 0 4px 15px #0000001a が 19 回。",
+        "transition は all .35s ease-in-out が 125 回。"
+      ],
+      "confidence": "high",
+      "thirdParty": false
+    },
+    {
+      "id": "EV-0040",
+      "type": "third-party",
+      "source": {
+        "path": "kamiyama-ac-jp/__external",
+        "lineStart": 1,
+        "lineEnd": 1,
+        "symbol": "external assets"
+      },
+      "claim": "Swiper、HubSpot、SNS、Google Tag Manager は第三者または外部サービス由来として扱う必要がある。",
+      "observations": [
+        "__external 配下に外部 CSS/JS が保存されている。",
+        "フォームと計測タグは製品固有のデザインシステムから分離する。"
+      ],
+      "confidence": "high",
+      "thirdParty": true
+    }
+  ]
+}

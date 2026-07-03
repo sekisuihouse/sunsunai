@@ -1,0 +1,45 @@
+/* 神山まるごと高専 — color tokens.
+   Source of truth: static mirror of kamiyama.ac.jp (design-system/tokens.css, EV-0001…EV-0031).
+   Core site is monochrome: white canvas, black text, black borders, light grays.
+   Campaign palettes are SEPARATE scopes — never mix into core. */
+
+:root {
+  /* base */
+  --km-color-white: #ffffff;
+  --km-color-black: #000000;
+  --km-color-gray-50: #f7f7f7;
+  --km-color-gray-100: #f2f2f2;
+  --km-color-gray-200: #ececec;
+  --km-color-gray-300: #e5e5e5;
+  --km-color-gray-500: #c4c4c4;
+  --km-color-shadow-black-alpha: #0000001a;
+
+  /* semantic */
+  --km-color-background: var(--km-color-white);
+  --km-color-text: var(--km-color-black);
+  --km-color-border-strong: var(--km-color-black);
+  --km-color-border-subtle: var(--km-color-gray-300);
+  --km-color-surface-muted: var(--km-color-gray-50);
+
+  /* campaign raw values (reference only — use via scopes below) */
+  --km-color-tour-blue: #58C3F5;
+  --km-color-tour-green: #92DF55;
+  --km-color-event-blue: #243FAB;
+  --km-color-event-cyan: #00A0E9;
+  --km-color-event-pink: #E4007F;
+  --km-color-event-yellow: #FFE100;
+}
+
+/* 学校説明会 LP theme */
+[data-km-scope="campaign-tour"] {
+  --km-color-campaign-primary: var(--km-color-tour-blue);
+  --km-color-campaign-secondary: var(--km-color-tour-green);
+}
+
+/* 未来の学校 FES theme */
+[data-km-scope="campaign-event"] {
+  --km-color-campaign-primary: var(--km-color-event-blue);
+  --km-color-campaign-secondary: var(--km-color-event-cyan);
+  --km-color-campaign-accent: var(--km-color-event-pink);
+  --km-color-campaign-highlight: var(--km-color-event-yellow);
+}

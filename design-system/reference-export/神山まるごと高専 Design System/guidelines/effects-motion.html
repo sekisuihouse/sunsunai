@@ -1,0 +1,25 @@
+<!-- @dsCard group="Effects" viewport="700x170" name="Motion" subtitle="all .35s ease-in-out 基準 ・ reveal .8s ・ 遷移 .6s" -->
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+.demo { display:flex; gap:20px; align-items:center; padding:20px 24px; font:700 11px var(--km-font-sans-ja); text-align:center; }
+.sw { width:110px; height:60px; border:3px solid #000; border-radius:999rem; background:#fff; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.sw::before { content:''; position:absolute; left:50%; top:50%; width:130%; aspect-ratio:1; border-radius:50%; background:#000; transform:translate(-50%,-50%) scale(0); transition:var(--km-motion-base); }
+.sw:hover::before { transform:translate(-50%,-50%) scale(1.05); }
+.sw span { position:relative; z-index:1; font:700 14px var(--km-font-sans-ja); transition:var(--km-motion-base); }
+.sw:hover span { color:#fff; }
+.fade { animation: reveal 1.6s ease-in-out infinite alternate; }
+@keyframes reveal { 0%,20% { opacity:0; transform:translateY(15px); } 70%,100% { opacity:1; transform:translateY(0); } }
+.lnk { font:700 15px var(--km-font-sans-ja); transition:var(--km-motion-base); cursor:pointer; }
+.lnk:hover { opacity:.6; }
+</style></head>
+<body style="margin:0;">
+<div class="demo">
+  <div><div class="sw"><span>hover</span></div>反転＋拡大円 .35s</div>
+  <div><div class="fade" style="width:110px;height:60px;background:var(--km-color-gray-200);display:flex;align-items:center;justify-content:center;font:700 13px var(--km-font-sans-ja);">js-fade</div>reveal .8s / +15px</div>
+  <div><span class="lnk">学校案内</span><br>link hover opacity .6</div>
+  <div style="text-align:left;color:#888;font-weight:500;">基準 all .35s ease-in-out<br>ページ遷移 .6s ・ reveal .8s</div>
+</div>
+</body>
+</html>

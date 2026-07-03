@@ -1,0 +1,18 @@
+/* Minimal base — mirrors the observed body defaults. */
+body {
+  margin: 0;
+  background: var(--km-color-background);
+  color: var(--km-color-text);
+  font-family: var(--km-font-sans-ja);
+  font-weight: var(--km-font-weight-medium);
+  letter-spacing: var(--km-letter-spacing-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible {
+  outline: var(--km-focus-ring);
+  outline-offset: var(--km-focus-ring-offset);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

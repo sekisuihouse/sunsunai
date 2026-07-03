@@ -1,0 +1,371 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/actions/**",
+              "components/campaign/**",
+              "components/content/**",
+              "components/form/**",
+              "components/layout/**",
+              "components/motion/**",
+              "components/navigation/**",
+              "ui_kits/website/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Jost))/i]",
+        "message": "Font not provided by the design system. Available: Jost."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ArcPageHeading'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|title|height|key|ref|className|style|children)$/]",
+        "message": "<ArcPageHeading> doesn't accept that prop. Declared props: label, title, height."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Breadcrumb'] > JSXAttribute > JSXIdentifier[name!=/^(?:items|size|key|ref|className|style|children)$/]",
+        "message": "<Breadcrumb> doesn't accept that prop. Declared props: items, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Breadcrumb'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:default|mobile)$/]",
+        "message": "<Breadcrumb> size must be one of 'default' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|href|onClick|children|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, href, onClick, children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:white|black)$/]",
+        "message": "<Button> variant must be one of 'white' | 'black'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:default|mobile)$/]",
+        "message": "<Button> size must be one of 'default' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CampaignLandingPage'] > JSXAttribute > JSXIdentifier[name!=/^(?:scope|title|subtitle|heroImage|whiteLogoSrc|ctaLabel|sections|children|key|ref|className|style|children)$/]",
+        "message": "<CampaignLandingPage> doesn't accept that prop. Declared props: scope, title, subtitle, heroImage, whiteLogoSrc, ctaLabel, sections, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CampaignLandingPage'] > JSXAttribute[name.name='scope'] > Literal[value!=/^(?:campaign-tour|campaign-event)$/]",
+        "message": "<CampaignLandingPage> scope must be one of 'campaign-tour' | 'campaign-event'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Footer'] > JSXAttribute > JSXIdentifier[name!=/^(?:logoSrc|size|navGroups|key|ref|className|style|children)$/]",
+        "message": "<Footer> doesn't accept that prop. Declared props: logoSrc, size, navGroups."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Footer'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:default|mobile)$/]",
+        "message": "<Footer> size must be one of 'default' | 'mobile'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='GlobalShell'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|logoSrc|whiteLogoSrc|activeIndex|navItems|forceVariant|key|ref|className|style|children)$/]",
+        "message": "<GlobalShell> doesn't accept that prop. Declared props: children, logoSrc, whiteLogoSrc, activeIndex, navItems, forceVariant."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='GlobalShell'] > JSXAttribute[name.name='forceVariant'] > Literal[value!=/^(?:desktop-left-rail|tablet-mobile-top)$/]",
+        "message": "<GlobalShell> forceVariant must be one of 'desktop-left-rail' | 'tablet-mobile-top'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='HeaderNavigation'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|items|activeIndex|logoSrc|onMenuClick|menuOpen|key|ref|className|style|children)$/]",
+        "message": "<HeaderNavigation> doesn't accept that prop. Declared props: variant, items, activeIndex, logoSrc, onMenuClick, menuOpen."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='HeaderNavigation'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:desktop-left-rail|tablet-mobile-top)$/]",
+        "message": "<HeaderNavigation> variant must be one of 'desktop-left-rail' | 'tablet-mobile-top'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='HoverMaskLink'] > JSXAttribute > JSXIdentifier[name!=/^(?:src|alt|href|width|aspectRatio|label|onClick|key|ref|className|style|children)$/]",
+        "message": "<HoverMaskLink> doesn't accept that prop. Declared props: src, alt, href, width, aspectRatio, label, onClick."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='HubSpotFormEmbed'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|height|key|ref|className|style|children)$/]",
+        "message": "<HubSpotFormEmbed> doesn't accept that prop. Declared props: variant, height."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='HubSpotFormEmbed'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:inquiry|mailmagazine)$/]",
+        "message": "<HubSpotFormEmbed> variant must be one of 'inquiry' | 'mailmagazine'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='LinkCtaCards'] > JSXAttribute > JSXIdentifier[name!=/^(?:items|columns|key|ref|className|style|children)$/]",
+        "message": "<LinkCtaCards> doesn't accept that prop. Declared props: items, columns."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NewsList'] > JSXAttribute > JSXIdentifier[name!=/^(?:items|key|ref|className|style|children)$/]",
+        "message": "<NewsList> doesn't accept that prop. Declared props: items."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='OverlayNavigation'] > JSXAttribute > JSXIdentifier[name!=/^(?:open|items|onClose|key|ref|className|style|children)$/]",
+        "message": "<OverlayNavigation> doesn't accept that prop. Declared props: open, items, onClose."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='RevealMotion'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|delay|as|style|key|ref|className|style|children)$/]",
+        "message": "<RevealMotion> doesn't accept that prop. Declared props: children, delay, as, style."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "ArcPageHeading": {
+        "replaces": []
+      },
+      "Breadcrumb": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "CampaignLandingPage": {
+        "replaces": []
+      },
+      "Footer": {
+        "replaces": []
+      },
+      "GlobalShell": {
+        "replaces": []
+      },
+      "HeaderNavigation": {
+        "replaces": []
+      },
+      "HoverMaskLink": {
+        "replaces": []
+      },
+      "HubSpotFormEmbed": {
+        "replaces": []
+      },
+      "LinkCtaCards": {
+        "replaces": []
+      },
+      "NewsList": {
+        "replaces": []
+      },
+      "OverlayNavigation": {
+        "replaces": []
+      },
+      "RevealMotion": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--km-border-width-button",
+      "--km-border-width-button-mobile",
+      "--km-border-width-thin",
+      "--km-breakpoint-campaign-desktop",
+      "--km-breakpoint-campaign-mobile",
+      "--km-breakpoint-desktop-rail",
+      "--km-breakpoint-mobile",
+      "--km-breakpoint-mobile-narrow",
+      "--km-breakpoint-tablet",
+      "--km-breakpoint-tablet-min",
+      "--km-color-background",
+      "--km-color-black",
+      "--km-color-border-strong",
+      "--km-color-border-subtle",
+      "--km-color-campaign-accent",
+      "--km-color-campaign-highlight",
+      "--km-color-campaign-primary",
+      "--km-color-campaign-secondary",
+      "--km-color-event-blue",
+      "--km-color-event-cyan",
+      "--km-color-event-pink",
+      "--km-color-event-yellow",
+      "--km-color-gray-100",
+      "--km-color-gray-200",
+      "--km-color-gray-300",
+      "--km-color-gray-50",
+      "--km-color-gray-500",
+      "--km-color-shadow-black-alpha",
+      "--km-color-surface-muted",
+      "--km-color-text",
+      "--km-color-tour-blue",
+      "--km-color-tour-green",
+      "--km-color-white",
+      "--km-focus-ring",
+      "--km-focus-ring-offset",
+      "--km-font-display-futura",
+      "--km-font-sans-ja",
+      "--km-font-size-base",
+      "--km-font-size-base-sm",
+      "--km-font-size-body-large",
+      "--km-font-size-button-mobile",
+      "--km-font-size-heading-2",
+      "--km-font-size-sm",
+      "--km-font-size-title-card",
+      "--km-font-size-xs",
+      "--km-font-weight-bold",
+      "--km-font-weight-medium",
+      "--km-letter-spacing-body",
+      "--km-line-height-body",
+      "--km-line-height-normal",
+      "--km-line-height-relaxed",
+      "--km-line-height-reset",
+      "--km-motion-base",
+      "--km-motion-fast",
+      "--km-motion-page",
+      "--km-motion-reveal",
+      "--km-opacity-hidden",
+      "--km-opacity-hover-muted",
+      "--km-opacity-visible",
+      "--km-radius-campaign-large",
+      "--km-radius-circle",
+      "--km-radius-event-asymmetric",
+      "--km-radius-lg",
+      "--km-radius-md",
+      "--km-radius-none",
+      "--km-radius-pill",
+      "--km-radius-sm",
+      "--km-shadow-ambient",
+      "--km-shadow-soft",
+      "--km-size-button",
+      "--km-size-button-mobile",
+      "--km-size-container",
+      "--km-size-container-inner",
+      "--km-size-desktop-rail",
+      "--km-size-logo",
+      "--km-space-10",
+      "--km-space-15",
+      "--km-space-2",
+      "--km-space-25",
+      "--km-space-3",
+      "--km-space-4",
+      "--km-space-5",
+      "--km-space-8",
+      "--km-text-body",
+      "--km-text-caption",
+      "--km-text-nav",
+      "--km-z-index-base",
+      "--km-z-index-header",
+      "--km-z-index-overlay"
+    ],
+    "tokenKinds": {
+      "--km-color-white": "color",
+      "--km-color-black": "color",
+      "--km-color-gray-50": "color",
+      "--km-color-gray-100": "color",
+      "--km-color-gray-200": "color",
+      "--km-color-gray-300": "color",
+      "--km-color-gray-500": "color",
+      "--km-color-shadow-black-alpha": "shadow",
+      "--km-color-background": "color",
+      "--km-color-text": "font",
+      "--km-color-border-strong": "color",
+      "--km-color-border-subtle": "color",
+      "--km-color-surface-muted": "color",
+      "--km-color-tour-blue": "color",
+      "--km-color-tour-green": "color",
+      "--km-color-event-blue": "color",
+      "--km-color-event-cyan": "color",
+      "--km-color-event-pink": "color",
+      "--km-color-event-yellow": "color",
+      "--km-color-campaign-primary": "color",
+      "--km-color-campaign-secondary": "color",
+      "--km-color-campaign-accent": "color",
+      "--km-color-campaign-highlight": "color",
+      "--km-font-sans-ja": "font",
+      "--km-font-display-futura": "font",
+      "--km-font-weight-medium": "font",
+      "--km-font-weight-bold": "font",
+      "--km-font-size-xs": "font",
+      "--km-font-size-sm": "font",
+      "--km-font-size-base-sm": "font",
+      "--km-font-size-base": "font",
+      "--km-font-size-button-mobile": "font",
+      "--km-font-size-body-large": "font",
+      "--km-font-size-title-card": "font",
+      "--km-font-size-heading-2": "font",
+      "--km-line-height-reset": "font",
+      "--km-line-height-normal": "font",
+      "--km-line-height-relaxed": "font",
+      "--km-line-height-body": "font",
+      "--km-letter-spacing-body": "font",
+      "--km-text-body": "font",
+      "--km-text-nav": "font",
+      "--km-text-caption": "font",
+      "--km-space-2": "spacing",
+      "--km-space-3": "spacing",
+      "--km-space-4": "spacing",
+      "--km-space-5": "spacing",
+      "--km-space-8": "spacing",
+      "--km-space-10": "spacing",
+      "--km-space-15": "spacing",
+      "--km-space-25": "spacing",
+      "--km-size-container": "spacing",
+      "--km-size-container-inner": "spacing",
+      "--km-size-desktop-rail": "spacing",
+      "--km-size-button": "spacing",
+      "--km-size-button-mobile": "spacing",
+      "--km-size-logo": "spacing",
+      "--km-z-index-base": "other",
+      "--km-z-index-header": "other",
+      "--km-z-index-overlay": "other",
+      "--km-breakpoint-mobile-narrow": "spacing",
+      "--km-breakpoint-mobile": "spacing",
+      "--km-breakpoint-tablet-min": "spacing",
+      "--km-breakpoint-tablet": "spacing",
+      "--km-breakpoint-desktop-rail": "spacing",
+      "--km-breakpoint-campaign-mobile": "spacing",
+      "--km-breakpoint-campaign-desktop": "spacing",
+      "--km-radius-none": "radius",
+      "--km-radius-sm": "radius",
+      "--km-radius-md": "radius",
+      "--km-radius-lg": "radius",
+      "--km-radius-pill": "radius",
+      "--km-radius-circle": "radius",
+      "--km-radius-campaign-large": "radius",
+      "--km-radius-event-asymmetric": "radius",
+      "--km-border-width-thin": "spacing",
+      "--km-border-width-button-mobile": "spacing",
+      "--km-border-width-button": "spacing",
+      "--km-shadow-soft": "shadow",
+      "--km-shadow-ambient": "shadow",
+      "--km-opacity-hover-muted": "other",
+      "--km-opacity-hidden": "other",
+      "--km-opacity-visible": "other",
+      "--km-motion-fast": "other",
+      "--km-motion-base": "other",
+      "--km-motion-page": "other",
+      "--km-motion-reveal": "other",
+      "--km-focus-ring": "color",
+      "--km-focus-ring-offset": "spacing"
+    },
+    "fontFamilies": [
+      "Jost"
+    ]
+  }
+}

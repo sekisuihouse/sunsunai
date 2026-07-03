@@ -1,0 +1,35 @@
+/* Typography tokens. Body Japanese = OS sans stack, weight 500 base / 700 emphasis.
+   Body baseline is deliberately large & airy: 20px / line-height 2 / letter-spacing .05em.
+   NOTE: 'Yu Gothic' is an OS-provided font (Windows/macOS ship it) — no webfont binary
+   is bundled. If a licensed .ttf/.otf is uploaded later, add an @font-face for it in
+   tokens/fonts.css; until then the stack falls back to Hiragino/Meiryo/sans-serif. */
+
+:root {
+  --km-font-sans-ja: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  /* Original site references Adobe "futura-pt-bold" (no local file in mirror).
+     "Jost" (Google Fonts) is the substitute — flag to client, swap when licensed files arrive. */
+  --km-font-display-futura: "Jost", "futura-pt-bold", sans-serif;
+
+  --km-font-weight-medium: 500;
+  --km-font-weight-bold: 700;
+
+  --km-font-size-xs: 11px;          /* SP breadcrumb */
+  --km-font-size-sm: 12px;          /* breadcrumb, copyright */
+  --km-font-size-base-sm: 14px;
+  --km-font-size-base: 16px;        /* nav links 15-16px */
+  --km-font-size-button-mobile: 18px;
+  --km-font-size-body-large: 20px;  /* body copy + buttons */
+  --km-font-size-title-card: 30px;  /* link card titles */
+  --km-font-size-heading-2: 35px;
+
+  --km-line-height-reset: 1;
+  --km-line-height-normal: 1.5;
+  --km-line-height-relaxed: 1.75;
+  --km-line-height-body: 2;
+  --km-letter-spacing-body: .05em;
+
+  /* semantic */
+  --km-text-body: var(--km-font-weight-medium) var(--km-font-size-body-large)/var(--km-line-height-body) var(--km-font-sans-ja);
+  --km-text-nav: var(--km-font-weight-bold) var(--km-font-size-base)/var(--km-line-height-normal) var(--km-font-sans-ja);
+  --km-text-caption: var(--km-font-weight-bold) var(--km-font-size-sm)/var(--km-line-height-normal) var(--km-font-sans-ja);
+}
