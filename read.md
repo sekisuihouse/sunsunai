@@ -4,7 +4,7 @@
 
 SunSun AI は、対面授業の学生発話をリアルタイムに文字起こしし、授業画面へ弾幕表示し、授業後にAI授業改善レポートを生成するMVPです。
 
-現在の実装は、Firebase未接続でもブラウザだけで画面確認できるように、`localStorage` とモック応答で動きます。OpenAI APIキーを設定すると、録音文字起こしとAI分析ルートが実APIへ接続されます。
+現在の実装は、Firebase設定がある場合は Authentication / Firestore / Storage に接続し、未設定でもブラウザだけで画面確認できるように `localStorage` とモック応答へフォールバックします。OpenAI APIキーを設定すると、録音文字起こしとAI分析ルートが実APIへ接続されます。
 
 ## 使用デザインシステム
 
@@ -59,6 +59,8 @@ npm run build
 ```
 
 この作業環境では `node` / `npm` が未導入だったため、上記コマンドは未実行です。Node.js が入っている環境で必ず実行してください。
+
+Firebase SDK を追加しているため、既存の `package-lock.json` がある場合も、まず通常の `npm install` で lock file を更新してください。
 
 ## 主要画面
 
@@ -144,12 +146,12 @@ design-system/
 
 ## 現在の保存方式
 
-MVPでは `src/lib/storage.ts` が `localStorage` へ保存します。
+Firebase設定が入っていない場合、`src/lib/storage.ts` が `localStorage` へ保存します。
 
 - `sunsunai.session`
 - `sunsunai.timeline`
 
-Firebase化するときは、この保存層をFirestore実装へ置き換えるのが最小変更です。
+Firebase設定が入っている場合、`src/lib/firebase.ts` と `src/features/sessions/useLessonStore.ts` が Firestore へ保存し、教員画面は `onSnapshot` でリアルタイム購読します。
 
 ## OpenAI API
 
@@ -208,13 +210,16 @@ window.postMessage({
 - `firestore.rules`
 - `storage.rules`
 - `src/lib/firebase.ts`
+- `src/features/sessions/useLessonStore.ts`
 
-推奨コレクション:
+実装済みコレクション:
 
 ```text
 sessions/{sessionId}
 sessions/{sessionId}/timeline/{entryId}
+sessions/{sessionId}/participants/{participantId}
 sessions/{sessionId}/reports/{reportId}
+sessions/{sessionId}/recordings/{recordingId}
 ```
 
 推奨Storage:
@@ -227,12 +232,47 @@ Firebaseでサーバーを構築する場合に必要なもの:
 
 1. FirebaseプロジェクトID
 2. WebアプリのFirebase config
-3. Authenticationを使うかどうか
+3. Authenticationの匿名ログイン有効化
 4. Firestoreのリージョン
-5. Storageを使うかどうか
+5. Storageの有効化
 6. Next.jsをFirebase Hostingで静的配信するか、Firebase App HostingでSSR/API込みにするか
 
 このMVPはAPI Routeを使うため、本番ではFirebase App Hosting、Cloud Run、Vercelのいずれかが扱いやすいです。静的Hostingだけにすると `/api/transcribe` と `/api/analyze` は別サーバーへ分離する必要があります。
+
+### Firebase Consoleでやること
+
+1. Firebase Consoleでプロジェクトを作成する。
+2. Webアプリを追加し、表示されたFirebase configを `.env.local` に入れる。
+3. Authenticationで「匿名」を有効化する。
+4. Firestore Databaseを作成する。
+5. Storageを作成する。
+6. Firebase CLIを使える環境で rules を反映する。
+
+```bash
+firebase login
+firebase use <project-id>
+firebase deploy --only firestore:rules,storage
+```
+
+### `.env.local` 例
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=...
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
+NEXT_PUBLIC_FIREBASE_APP_ID=...
+```
+
+### Firebase接続後の動作
+
+- `/session` で授業作成すると `sessions/{sessionId}` に保存されます。
+- `/live` に学生参加リンクが表示されます。
+- `/student?sessionId=...&code=...` で学生が授業へ参加できます。
+- 学生コメントと教員発話は `sessions/{sessionId}/timeline` に保存されます。
+- 教員画面は Firestore の `timeline` をリアルタイム購読して弾幕へ反映します。
+- 録音ファイルは `lesson-recordings/{sessionId}/...` へ保存され、メタデータは `sessions/{sessionId}/recordings` に保存されます。
 
 ## GitHub
 

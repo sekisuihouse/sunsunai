@@ -1,15 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { LogIn } from "lucide-react";
 import { Button } from "@/design-system/primitives/Button";
 import { AudioCapturePanel } from "@/features/audio/AudioCapturePanel";
+import {
+  ensureAnonymousUser,
+  findSessionByJoinCode,
+  getSessionFromFirestore,
+  isFirebaseEnabled,
+  saveParticipantToFirestore,
+} from "@/lib/firebase";
 import { useLessonStore } from "./useLessonStore";
 
 export function StudentJoin() {
-  const { session, addStudentComment } = useLessonStore();
+  const searchParams = useSearchParams();
+  const { session, setSession, addStudentComment } = useLessonStore();
   const [joined, setJoined] = useState(false);
   const [tableId, setTableId] = useState(1);
+  const [status, setStatus] = useState("参加リンクを確認中");
+
+  useEffect(() => {
+    const sessionId = searchParams.get("sessionId");
+    const code = searchParams.get("code");
+    if (!isFirebaseEnabled() || (!sessionId && !code)) {
+      setStatus("ローカルデモ授業へ参加できます");
+      return;
+    }
+
+    async function loadRemoteSession() {
+      setStatus("Firestoreから授業を読み込み中");
+      const remoteSession = sessionId
+        ? await getSessionFromFirestore(sessionId)
+        : code
+          ? await findSessionByJoinCode(code)
+          : null;
+      if (remoteSession) {
+        await setSession(remoteSession);
+        setStatus("授業を読み込みました");
+      } else {
+        setStatus("授業が見つかりません。参加コードを確認してください");
+      }
+    }
+
+    void loadRemoteSession();
+  }, [searchParams, setSession]);
 
   if (!session) return null;
 
@@ -18,7 +54,9 @@ export function StudentJoin() {
       <div className="km-panel">
         <div className="km-panel__header">
           <span>学生参加</span>
-          <span className="km-meta">参加コード {session.joinCode}</span>
+          <span className="km-meta">
+            参加コード {session.joinCode} / {status}
+          </span>
         </div>
         <div className="km-panel__body">
           {!joined ? (
@@ -27,6 +65,17 @@ export function StudentJoin() {
               onSubmit={(event) => {
                 event.preventDefault();
                 setJoined(true);
+                if (isFirebaseEnabled()) {
+                  void ensureAnonymousUser().then((user) => {
+                    if (!user) return;
+                    return saveParticipantToFirestore({
+                      sessionId: session.id,
+                      participantId: user.uid,
+                      role: "student",
+                      tableId,
+                    });
+                  });
+                }
               }}
             >
               <label className="km-field">

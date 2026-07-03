@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Bot, Download } from "lucide-react";
 import { Button } from "@/design-system/primitives/Button";
+import { isFirebaseEnabled, saveReportToFirestore } from "@/lib/firebase";
 import { demoReport } from "@/lib/sample-data";
 import { generateHeuristicReport } from "@/lib/report";
 import type { LessonReport } from "@/types/domain";
@@ -29,6 +30,14 @@ export function ReportGenerator() {
     if (data.report) {
       setReport(data.report);
       setStatus("生成完了");
+      if (isFirebaseEnabled()) {
+        try {
+          await saveReportToFirestore(data.report);
+        } catch (error) {
+          console.error("Failed to save report to Firestore.", error);
+          setStatus("生成完了 / Firestore保存失敗");
+        }
+      }
     } else {
       setReport(fallback);
       setStatus(data.error ?? "モックレポートを表示中");

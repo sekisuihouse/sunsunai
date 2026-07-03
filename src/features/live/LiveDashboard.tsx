@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, MessageSquareText } from "lucide-react";
+import { Copy, Download, MessageSquareText } from "lucide-react";
 import { AudioCapturePanel } from "@/features/audio/AudioCapturePanel";
 import { Button } from "@/design-system/primitives/Button";
 import { Heatmap } from "./Heatmap";
@@ -15,6 +15,12 @@ export function LiveDashboard() {
   const [manual, setManual] = useState("");
 
   if (!session) return null;
+  const joinUrl =
+    typeof window === "undefined"
+      ? ""
+      : `${window.location.origin}/student?sessionId=${encodeURIComponent(
+          session.id,
+        )}&code=${encodeURIComponent(session.joinCode)}`;
 
   return (
     <div className="km-stack">
@@ -34,6 +40,25 @@ export function LiveDashboard() {
         <div className="metric">
           <span className="km-meta">コメント</span>
           <strong>{timeline.length}</strong>
+        </div>
+      </div>
+
+      <div className="km-panel">
+        <div className="km-panel__header">
+          <span>学生参加リンク</span>
+          <span className="km-meta">配布用URL</span>
+        </div>
+        <div className="km-panel__body km-stack">
+          <p>{joinUrl}</p>
+          <Button
+            icon={Copy}
+            onClick={() => {
+              if (joinUrl) void navigator.clipboard?.writeText(joinUrl);
+            }}
+            size="small"
+          >
+            リンクをコピー
+          </Button>
         </div>
       </div>
 

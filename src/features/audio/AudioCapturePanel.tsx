@@ -3,6 +3,8 @@
 import { useRef, useState } from "react";
 import { Mic, Square } from "lucide-react";
 import { Button } from "@/design-system/primitives/Button";
+import { isFirebaseEnabled, uploadLessonAudio } from "@/lib/firebase";
+import { loadSession } from "@/lib/storage";
 
 export function AudioCapturePanel({
   label,
@@ -48,6 +50,15 @@ export function AudioCapturePanel({
     const file = new File(chunks.current, "lesson-audio.webm", {
       type: "audio/webm",
     });
+    if (isFirebaseEnabled()) {
+      try {
+        setStatus("録音ファイルをStorageへ保存中");
+        await uploadLessonAudio({ sessionId: loadSession().id, file });
+      } catch (error) {
+        console.error("Failed to upload audio to Firebase Storage.", error);
+      }
+    }
+    setStatus("文字起こし中");
     const form = new FormData();
     form.append("file", file);
     if (tableId) form.append("tableId", String(tableId));

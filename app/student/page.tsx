@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { GlobalShell } from "@/design-system/components/GlobalShell";
 import { Container } from "@/design-system/primitives/Container";
 import { Section } from "@/design-system/primitives/Section";
@@ -15,7 +16,9 @@ export default function StudentPage() {
               テーブルPCごとに参加し、音声またはデモコメントを授業タイムラインへ送ります。
             </p>
           </div>
-          <StudentJoin />
+          <Suspense fallback={<div className="km-panel km-panel__body">参加情報を読み込み中</div>}>
+            <StudentJoin />
+          </Suspense>
         </Container>
       </Section>
     </GlobalShell>
