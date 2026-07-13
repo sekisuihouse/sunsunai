@@ -2,6 +2,7 @@ import { GlobalShell } from "@/design-system/components/GlobalShell";
 import { Button } from "@/design-system/primitives/Button";
 import { Container } from "@/design-system/primitives/Container";
 import { Section } from "@/design-system/primitives/Section";
+import { SessionManager } from "@/features/sessions/SessionManager";
 
 export default function TeacherPage() {
   return (
@@ -19,7 +20,7 @@ export default function TeacherPage() {
             <div className="km-panel">
               <div className="km-panel__header">現在の授業</div>
               <div className="km-panel__body km-stack">
-                <p>デモ授業または作成済みセッションをlocalStorageから読み込みます。</p>
+                <p>保存済みの授業をlocalStorageから読み込みます。</p>
                 <Button href="/live" variant="black">ライブビューへ</Button>
               </div>
             </div>
@@ -29,6 +30,12 @@ export default function TeacherPage() {
                 <p>授業名、教室、教員名、テーブル数を入力して開始します。</p>
                 <Button href="/session">授業を作成</Button>
               </div>
+            </div>
+          </div>
+          <div className="km-panel">
+            <div className="km-panel__header">授業管理</div>
+            <div className="km-panel__body">
+              <SessionManager />
             </div>
           </div>
         </Container>

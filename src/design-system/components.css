@@ -259,6 +259,25 @@
   resize: vertical;
 }
 
+.km-notice {
+  border: var(--km-border-width-button-mobile) solid var(--km-color-notice-info);
+  background: var(--km-color-surface-muted);
+  color: var(--km-color-text);
+  padding: var(--km-space-3) var(--km-space-4);
+  font-size: var(--km-font-size-sm);
+  font-weight: var(--km-font-weight-bold);
+  line-height: var(--km-line-height-normal);
+}
+
+.km-notice--success {
+  border-color: var(--km-color-notice-success);
+}
+
+.km-notice--error {
+  border-width: var(--km-border-width-button);
+  border-color: var(--km-color-notice-error);
+}
+
 .km-cta-cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

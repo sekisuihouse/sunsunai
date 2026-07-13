@@ -13,6 +13,8 @@ export type LessonSession = {
   status: SessionStatus;
   tableCount: number;
   joinCode: string;
+  startedAt?: string;
+  endedAt?: string;
 };
 
 export type TimelineEntry = {

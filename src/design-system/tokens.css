@@ -14,6 +14,10 @@
   --km-color-border-subtle: var(--km-color-gray-300);
   --km-color-surface-muted: var(--km-color-gray-50);
 
+  --km-color-notice-info: var(--km-color-border-subtle);
+  --km-color-notice-success: var(--km-color-black);
+  --km-color-notice-error: var(--km-color-black);
+
   --km-color-tour-blue: #58C3F5;
   --km-color-tour-green: #92DF55;
   --km-color-event-blue: #243FAB;

@@ -14,7 +14,9 @@ export function TimelineList({ timeline }: { timeline: TimelineEntry[] }) {
               <div className="timeline__speaker">
                 {entry.role === "teacher"
                   ? `Teacher${entry.speakerName ? ` / ${entry.speakerName}` : ""}`
-                  : `Table ${String(entry.tableId ?? 0).padStart(2, "0")}`}
+                  : `Table ${String(entry.tableId ?? 0).padStart(2, "0")}${
+                      entry.speakerName ? ` / ${entry.speakerName}` : ""
+                    }`}
               </div>
               <div>{entry.text}</div>
               <div className="km-meta">{entry.sentiment} / {entry.source}</div>

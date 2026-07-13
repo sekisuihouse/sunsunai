@@ -1,21 +1,37 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CalendarPlus } from "lucide-react";
 import { Button } from "@/design-system/primitives/Button";
+import { Notice } from "@/design-system/primitives/Notice";
 import { createId } from "@/lib/storage";
 import type { LessonSession } from "@/types/domain";
 import { useLessonStore } from "./useLessonStore";
 
 export function SessionCreator() {
   const router = useRouter();
-  const { setSession } = useLessonStore();
+  const { resetTimeline, setSession } = useLessonStore();
+  const [error, setError] = useState<string | null>(null);
 
   function createSession(formData: FormData) {
-    const title = String(formData.get("title") || "新しい授業");
-    const classroom = String(formData.get("classroom") || "未設定");
-    const teacherName = String(formData.get("teacherName") || "教員");
+    const title = String(formData.get("title") ?? "").trim();
+    const classroom = String(formData.get("classroom") ?? "").trim();
+    const teacherName = String(formData.get("teacherName") ?? "").trim();
     const tableCount = Number(formData.get("tableCount") || 12);
+    if (!title) {
+      setError("授業名を入力してください");
+      return;
+    }
+    if (!classroom) {
+      setError("教室を入力してください");
+      return;
+    }
+    if (!teacherName) {
+      setError("教員名を入力してください");
+      return;
+    }
+    setError(null);
     const session: LessonSession = {
       id: createId("lesson"),
       title,
@@ -23,15 +39,17 @@ export function SessionCreator() {
       teacherName,
       tableCount,
       startsAt: new Date().toISOString(),
-      status: "live",
+      status: "draft",
       joinCode: Math.random().toString(36).slice(2, 8).toUpperCase(),
     };
-    setSession(session);
+    void setSession(session);
+    resetTimeline();
     router.push("/live");
   }
 
   return (
     <form action={createSession} className="km-form">
+      {error ? <Notice tone="error">{error}</Notice> : null}
       <label className="km-field">
         <span>授業名</span>
         <input name="title" required placeholder="デザイン思考入門" />
@@ -57,7 +75,7 @@ export function SessionCreator() {
         </select>
       </label>
       <Button icon={CalendarPlus} type="submit" variant="black">
-        授業を開始
+        授業を作成
       </Button>
     </form>
   );

@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { LogIn } from "lucide-react";
 import { Button } from "@/design-system/primitives/Button";
+import { Notice } from "@/design-system/primitives/Notice";
 import { AudioCapturePanel } from "@/features/audio/AudioCapturePanel";
 import {
   ensureAnonymousUser,
@@ -14,16 +15,23 @@ import {
 } from "@/lib/firebase";
 import { useLessonStore } from "./useLessonStore";
 
+const joinCodePattern = /^[a-z0-9]{4,8}$/i;
+
 export function StudentJoin() {
   const searchParams = useSearchParams();
   const { session, setSession, addStudentComment } = useLessonStore();
   const [joined, setJoined] = useState(false);
   const [tableId, setTableId] = useState(1);
+  const [studentName, setStudentName] = useState("");
   const [status, setStatus] = useState("参加リンクを確認中");
+  const [codeError, setCodeError] = useState<string | null>(null);
 
   useEffect(() => {
     const sessionId = searchParams.get("sessionId");
     const code = searchParams.get("code");
+    if (code && !joinCodePattern.test(code)) {
+      setCodeError("参加コードの形式が正しくありません");
+    }
     if (!isFirebaseEnabled() || (!sessionId && !code)) {
       setStatus("ローカルデモ授業へ参加できます");
       return;
@@ -48,6 +56,7 @@ export function StudentJoin() {
   }, [searchParams, setSession]);
 
   if (!session) return null;
+  const ended = session.status === "ended";
 
   return (
     <div className="km-stack">
@@ -59,7 +68,10 @@ export function StudentJoin() {
           </span>
         </div>
         <div className="km-panel__body">
-          {!joined ? (
+          {codeError ? <Notice tone="error">{codeError}</Notice> : null}
+          {ended ? (
+            <Notice>この授業は終了しました。コメントの受付は締め切られています。</Notice>
+          ) : !joined ? (
             <form
               className="km-form"
               onSubmit={(event) => {
@@ -73,6 +85,7 @@ export function StudentJoin() {
                       participantId: user.uid,
                       role: "student",
                       tableId,
+                      name: studentName.trim() || undefined,
                     });
                   });
                 }
@@ -95,7 +108,12 @@ export function StudentJoin() {
               </label>
               <label className="km-field">
                 <span>名前 任意</span>
-                <input placeholder="未入力でも参加できます" />
+                <input
+                  maxLength={20}
+                  onChange={(event) => setStudentName(event.target.value)}
+                  placeholder="未入力でも参加できます"
+                  value={studentName}
+                />
               </label>
               <Button icon={LogIn} type="submit" variant="black">
                 参加する
@@ -104,17 +122,28 @@ export function StudentJoin() {
           ) : (
             <div className="km-stack">
               <p>
-                T{String(tableId).padStart(2, "0")} として参加中です。録音から文字起こしするか、
-                下の入力欄でデモコメントを送信できます。
+                T{String(tableId).padStart(2, "0")}
+                {studentName.trim() ? ` ${studentName.trim()}` : ""} として参加中です。
+                録音から文字起こしするか、下の入力欄でデモコメントを送信できます。
               </p>
-              <AudioCapturePanel
-                label={`T${String(tableId).padStart(2, "0")} 音声取得`}
-                onTranscript={(text) => addStudentComment(tableId, text, "neutral")}
-                tableId={tableId}
-              />
-              <ManualCommentForm
-                onSubmit={(text) => addStudentComment(tableId, text, "neutral")}
-              />
+              {session.status === "draft" ? (
+                <Notice>授業開始前です。開始までお待ちください。</Notice>
+              ) : (
+                <>
+                  <AudioCapturePanel
+                    label={`T${String(tableId).padStart(2, "0")} 音声取得`}
+                    onTranscript={(text) =>
+                      addStudentComment(tableId, text, studentName.trim() || undefined)
+                    }
+                    tableId={tableId}
+                  />
+                  <ManualCommentForm
+                    onSubmit={(text) =>
+                      addStudentComment(tableId, text, studentName.trim() || undefined)
+                    }
+                  />
+                </>
+              )}
             </div>
           )}
         </div>
@@ -125,16 +154,32 @@ export function StudentJoin() {
 
 function ManualCommentForm({ onSubmit }: { onSubmit: (text: string) => void }) {
   const [text, setText] = useState("");
+  const [notice, setNotice] = useState<{ tone: "success" | "error"; text: string } | null>(
+    null,
+  );
+  const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function showNotice(tone: "success" | "error", message: string) {
+    if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    setNotice({ tone, text: message });
+    noticeTimer.current = setTimeout(() => setNotice(null), 2500);
+  }
+
   return (
     <form
       className="km-form"
       onSubmit={(event) => {
         event.preventDefault();
-        if (!text.trim()) return;
+        if (!text.trim()) {
+          showNotice("error", "コメントを入力してください");
+          return;
+        }
         onSubmit(text.trim());
         setText("");
+        showNotice("success", "コメントを送信しました");
       }}
     >
+      {notice ? <Notice tone={notice.tone}>{notice.text}</Notice> : null}
       <label className="km-field">
         <span>デモコメント</span>
         <textarea

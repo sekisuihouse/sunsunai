@@ -46,7 +46,8 @@ export function DanmakuOverlay({
             } as CSSProperties
           }
         >
-          [T{String(entry.tableId ?? 0).padStart(2, "0")}] {entry.text}
+          [T{String(entry.tableId ?? 0).padStart(2, "0")}
+          {entry.speakerName ? ` ${entry.speakerName}` : ""}] {entry.text}
         </span>
       ))}
     </div>

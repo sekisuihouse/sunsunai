@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { LessonSession, Sentiment, TimelineEntry } from "@/types/domain";
+import type { LessonSession, TimelineEntry } from "@/types/domain";
+import { classifySentiment } from "@/lib/sentiment";
 import {
   addTimelineEntryToFirestore,
   ensureAnonymousUser,
@@ -11,6 +12,7 @@ import {
   subscribeTimelineFromFirestore,
 } from "@/lib/firebase";
 import {
+  clearTimeline,
   createId,
   loadSession,
   loadTimeline,
@@ -27,30 +29,32 @@ export function useLessonStore() {
     const localSession = loadSession();
     setSessionState(localSession);
     setTimelineState(loadTimeline());
+    setMode(isFirebaseEnabled() ? "firestore" : "local");
+  }, []);
 
-    if (!isFirebaseEnabled()) {
-      setMode("local");
-      return;
-    }
-
+  useEffect(() => {
+    if (!session || !isFirebaseEnabled()) return;
+    const sessionId = session.id;
     let cleanupSession: (() => void) | null = null;
     let cleanupTimeline: (() => void) | null = null;
     let cancelled = false;
 
     async function connect() {
       try {
+        const currentSession = loadSession();
+        if (currentSession.id !== sessionId) return;
         await ensureAnonymousUser();
         if (cancelled) return;
         setMode("firestore");
-        await saveSessionToFirestore(localSession);
-        cleanupSession = subscribeSessionFromFirestore(localSession.id, (next) => {
+        await saveSessionToFirestore(currentSession);
+        cleanupSession = subscribeSessionFromFirestore(sessionId, (next) => {
           if (!next) return;
           setSessionState(next);
           saveSession(next);
         });
-        cleanupTimeline = subscribeTimelineFromFirestore(localSession.id, (next) => {
+        cleanupTimeline = subscribeTimelineFromFirestore(sessionId, (next) => {
           setTimelineState(next);
-          saveTimeline(next);
+          saveTimeline(next, sessionId);
         });
       } catch (error) {
         console.error("Firebase connection failed. Falling back to localStorage.", error);
@@ -65,45 +69,66 @@ export function useLessonStore() {
       cleanupSession?.();
       cleanupTimeline?.();
     };
-  }, []);
+  }, [session?.id]);
 
-  const api = useMemo(
-    () => ({
-      mode,
-      async setSession(next: LessonSession) {
-        setSessionState(next);
-        saveSession(next);
-        if (isFirebaseEnabled()) {
-          try {
-            await saveSessionToFirestore(next);
-            setMode("firestore");
-          } catch (error) {
-            console.error("Failed to save session to Firestore.", error);
-            setMode("local");
-          }
+  const api = useMemo(() => {
+    async function persistSession(next: LessonSession) {
+      setSessionState(next);
+      saveSession(next);
+      setTimelineState(loadTimeline(next.id));
+      if (isFirebaseEnabled()) {
+        try {
+          await saveSessionToFirestore(next);
+          setMode("firestore");
+        } catch (error) {
+          console.error("Failed to save session to Firestore.", error);
+          setMode("local");
         }
+      }
+    }
+
+    return {
+      mode,
+      setSession: persistSession,
+      resetTimeline() {
+        const currentSession = loadSession();
+        clearTimeline(currentSession.id);
+        setTimelineState([]);
       },
-      async addStudentComment(
-        tableId: number,
-        text: string,
-        sentiment: Sentiment = "neutral",
-      ) {
+      async startLesson() {
+        await persistSession({
+          ...loadSession(),
+          status: "live",
+          startedAt: new Date().toISOString(),
+        });
+      },
+      async endLesson() {
+        await persistSession({
+          ...loadSession(),
+          status: "ended",
+          endedAt: new Date().toISOString(),
+        });
+      },
+      async addStudentComment(tableId: number, text: string, speakerName?: string) {
         const current = loadTimeline();
         const currentSession = loadSession();
+        if (currentSession.status === "ended") return;
+        const trimmedName = speakerName?.trim();
         const next: TimelineEntry = {
           id: createId("student"),
           sessionId: currentSession.id,
-          elapsedSeconds: inferNextElapsed(current),
+          elapsedSeconds: computeElapsedSeconds(currentSession, current),
           createdAt: new Date().toISOString(),
           role: "student",
           tableId,
           text,
           source: "manual",
-          sentiment,
+          sentiment: classifySentiment(text),
+          ...(trimmedName ? { speakerName: trimmedName } : {}),
         };
         const merged = [...current, next];
         setTimelineState(merged);
-        saveTimeline(merged);
+        saveTimeline(merged, currentSession.id);
         if (isFirebaseEnabled()) {
           try {
             await addTimelineEntryToFirestore(next);
@@ -117,10 +142,11 @@ export function useLessonStore() {
       async addTeacherSpeech(text: string) {
         const current = loadTimeline();
         const currentSession = loadSession();
+        if (currentSession.status === "ended") return;
         const next: TimelineEntry = {
           id: createId("teacher"),
           sessionId: currentSession.id,
-          elapsedSeconds: inferNextElapsed(current),
+          elapsedSeconds: computeElapsedSeconds(currentSession, current),
           createdAt: new Date().toISOString(),
           role: "teacher",
           speakerName: currentSession.teacherName,
@@ -130,7 +156,7 @@ export function useLessonStore() {
         };
         const merged = [...current, next];
         setTimelineState(merged);
-        saveTimeline(merged);
+        saveTimeline(merged, currentSession.id);
         if (isFirebaseEnabled()) {
           try {
             await addTimelineEntryToFirestore(next);
@@ -143,13 +169,24 @@ export function useLessonStore() {
       },
       replaceTimeline(next: TimelineEntry[]) {
         setTimelineState(next);
-        saveTimeline(next);
+        saveTimeline(next, loadSession().id);
       },
-    }),
-    [mode],
-  );
+    };
+  }, [mode]);
 
   return { session, timeline, ...api };
+}
+
+function computeElapsedSeconds(
+  session: LessonSession,
+  timeline: TimelineEntry[],
+) {
+  const base = session.startedAt ?? session.startsAt;
+  const startMs = base ? Date.parse(base) : Number.NaN;
+  if (!Number.isNaN(startMs)) {
+    return Math.max(0, Math.floor((Date.now() - startMs) / 1000));
+  }
+  return inferNextElapsed(timeline);
 }
 
 function inferNextElapsed(timeline: TimelineEntry[]) {
